@@ -1,0 +1,8 @@
+function selectOption(selectFormField, value) {
+    for (var i = 0; i < selectFormField.length; i++) {
+        if (selectFormField.options[i].value == value) {
+            selectFormField.options[i].selected = true;
+            return;
+        }
+    }
+}

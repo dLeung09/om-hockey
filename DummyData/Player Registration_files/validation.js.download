@@ -1,0 +1,177 @@
+function focusField(field) {
+    field.focus();
+    field.select();
+}
+
+function validateNameAndEmail(form) {
+    if (form.FirstName.value == "") {
+        alert("You must provide your first name.");
+        focusField(form.FirstName);
+        return false;
+    }
+    if (form.LastName.value == "") {
+        alert("You must provide your last name.");
+        focusField(form.LastName);
+        return false;
+    }
+    if (form.EmailAddress.value == "") {
+        alert("You must provide your email address.");
+        focusField(form.EmailAddress);
+        return false;
+    } else {
+        if (!checkEmail(form.EmailAddress)) {
+            alert("You have specified an invalid email address.");
+            focusField(form.EmailAddress);
+            return false;
+        }
+    }
+    if (form.EmailAddress2.value != "") {
+        if (!checkEmail(form.EmailAddress2)) {
+            alert("You have specified an invalid email address.");
+            focusField(form.EmailAddress2);
+            return false;
+        }
+    }
+
+    if (form.PostalCode.value != "") {
+        if (!checkPostal(form.PostalCode)) {
+            alert("You have specified an invalid postal code.");
+            focusField(form.PostalCode);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function validatePlayerRegistration(form) {
+    if (form.FirstName.value == "") {
+        alert("You must provide your first name.");
+        focusField(form.FirstName);
+        return false;
+    }
+    if (form.LastName.value == "") {
+        alert("You must provide your last name.");
+        focusField(form.LastName);
+        return false;
+    }
+    if (form.EmailAddress.value == "") {
+        alert("You must provide your email address.");
+        focusField(form.EmailAddress);
+        return false;
+    } else {
+        if (!checkEmail(form.EmailAddress)) {
+            alert("You have specified an invalid email address.");
+            focusField(form.EmailAddress);
+            return false;
+        }
+    }
+    if (form.EmailAddress2.value != "") {
+        if (!checkEmail(form.EmailAddress2)) {
+            alert("You have specified an invalid email address.");
+            focusField(form.EmailAddress2);
+            return false;
+        }
+    }
+    if (form.Address.value == "") {
+        alert("You must provide your address.");
+        focusField(form.Address);
+        return false;
+    }
+    if (form.City.value == "") {
+        alert("You must provide your city.");
+        focusField(form.City);
+        return false;
+    }
+    if (form.PostalCode.value == "") {
+        alert("You must provide your postal code.");
+        focusField(form.PostalCode);
+        return false;
+    } else {
+        if (!checkPostal(form.PostalCode)) {
+            alert("You have specified an invalid postal code.");
+            focusField(form.PostalCode);
+            return false;
+        }
+    }
+
+    return checkPhone(form.HomeAreaCode, form.HomePhone3, form.HomePhone4)
+        && checkPhone(form.WorkAreaCode, form.WorkPhone3, form.WorkPhone4);
+}
+
+function checkEmail(email) {
+	return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value);
+}
+
+
+function checkPostal(postal) {
+	return /^([A-Z]{1}\d[A-Z]{1})( )*(-)?( )*(\d[A-Z]{1}\d)$/i.exec(postal.value);
+}
+
+function checkPhone(areacode, phone3, phone4) {
+    if (areacode.value == "") {
+        alert("You must provide your area code.");
+        focusField(areacode);
+        return false;
+    } else if (!isNum(areacode.value) || areacode.value.length != 3) {
+        alert("You have specified an invalid phone number.");
+        focusField(areacode);
+        return false;
+    }
+    if (phone3.value == "") {
+        alert("You must provide your phone number.");
+        focusField(phone3);
+        return false;
+    } else if (!isNum(phone3.value) || phone3.value.length != 3) {
+        alert("You have specified an invalid phone number.");
+        focusField(phone3);
+        return false;
+    }
+    if (phone4.value == "") {
+        alert("You must provide your phone number.");
+        focusField(phone4);
+        return false;
+    } else if (!isNum(phone4.value) || phone4.value.length != 4) {
+        alert("You have specified an invalid phone number.");
+        focusField(phone4);
+        return false;
+    }
+
+    return true;
+}
+
+function isNum(passedValue) {
+	if (passedValue == "") {
+		return false;
+	}
+	for (var i=0; i<passedValue.length; i++) {
+		if (passedValue.charAt(i) < "0") {
+			return false;
+		}
+		if (passedValue.charAt(i) > "9") {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+/*
+function validateAddEvent(form) {
+    if (form.EventName.value == "") {
+        alert("You must provide a name for the new event.");
+        form.EventName.focus();
+        return false;
+    }
+    return true;
+}
+
+function validateAddTeam(form) {
+    if (form.TeamName.value == "") {
+        alert("You must provide a name for the new team.");
+        form.TeamName.focus();
+        return false;
+    }
+    return true;
+}
+*/

@@ -1,0 +1,44 @@
+.forminput {
+    font-family: Tahoma,Verdana,Arial;
+    font-size: 9pt;
+}
+
+.forminputdisabled {
+    font-family: Tahoma,Verdana,Arial;
+    font-size: 9pt;
+    background-COLOR : DDDDDD;
+}
+
+.forminputlabel {
+    font-family: Tahoma,Verdana,Arial;
+    font-size: 10pt;
+}
+
+input.button
+{
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin: 0px 0px 0px 0px;
+    font-family: Tahoma,Verdana,Arial;
+    font-size: 8pt;
+    text-align: center
+}
+
+input.flatButton {
+	background-color: #F2F2F2;
+	font-family: Verdana, Arial;
+	font-size: 10pt;
+	border: 1px solid #214263;
+    COLOR : 000080;
+}
+
+input.flatButtonHover {
+	background-color: #DEDEDE;
+	font-family: Verdana, Arial;
+	font-size: 10pt;
+	border: 1px solid #214263;
+    COLOR : 0000FF;
+    TEXT-DECORATION: underline;
+}
