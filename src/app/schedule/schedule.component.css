@@ -1,0 +1,27 @@
+.schedule-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.schedule-filter {
+}
+
+.schedule-table {
+    overflow: auto;
+    height: 750px;
+}
+
+table {
+    width: 100%;
+}
+
+.table-header {
+    background-color: white;
+}
+
+/*
+tr {
+    background-color: white;
+}
+*/
