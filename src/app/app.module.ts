@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -24,7 +23,8 @@ import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.compo
 import { ArenaMapsComponent } from './arena-maps/arena-maps.component';
 import { RulesRegulationsComponent } from './rules-regulations/rules-regulations.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
+import { DemoModeInterceptor } from './interceptor/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -50,14 +50,16 @@ import { AppRoutingModule } from './/app-routing.module';
   ],
   imports: [
     BrowserModule,
-      AppRoutingModule,
-      HttpClientModule,
-
-      HttpClientInMemoryWebApiModule.forRoot(
-          InMemoryDataService, { dataEncapsulation: false }
-      )
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DemoModeInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
