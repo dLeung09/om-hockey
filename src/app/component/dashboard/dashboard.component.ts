@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ScheduleService } from '../schedule.service';
-import { Game } from '../game';
+import { ScheduleService } from '../../services/schedule.service';
+import { Game } from '../../model/game';
 
 @Component({
   selector: 'app-dashboard',

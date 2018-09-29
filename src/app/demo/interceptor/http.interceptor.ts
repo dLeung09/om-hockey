@@ -8,8 +8,8 @@ import {
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { Game } from '../game';
-import { Team } from '../team';
+import { Game } from '../../model/game';
+import { Team } from '../../model/team';
 import { SampleData } from '../sample-data/sample-data.model';
 
 @Injectable()

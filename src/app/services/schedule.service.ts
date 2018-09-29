@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Arena } from './arena';
-import { Game } from './game';
-import { Team } from './team';
+import { Arena } from '../model/arena';
+import { Game } from '../model/game';
+import { Team } from '../model/team';
 
 @Injectable({
   providedIn: 'root'

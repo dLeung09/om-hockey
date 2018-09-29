@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ScheduleService } from '../schedule.service';
-import { Game } from '../game';
-import { Team } from '../team';
+import { ScheduleService } from '../../services/schedule.service';
+import { Game } from '../../model/game';
+import { Team } from '../../model/team';
 
 const DefaultTeams: Team[] = [
   { "id": -1, "name": "All Teams" }
