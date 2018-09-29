@@ -10,7 +10,7 @@ import { Team } from '../model/team';
 @Injectable({
   providedIn: 'root'
 })
-export class ScheduleService {
+export class BackendService {
 
   private scheduleUrl = 'api/1/schedule';
   private teamsUrl = 'api/1/teams';

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ScheduleService } from '../../services/schedule.service';
+import { BackendService } from '../../services/backend.service';
 import { Game } from '../../model/game';
 import { Team } from '../../model/team';
 
 const DefaultTeams: Team[] = [
-  { "id": -1, "name": "All Teams" }
+  { "id": -1, "name": "All Teams", "players": [] }
 ];
 
 @Component({
@@ -31,7 +31,7 @@ export class ScheduleComponent implements OnInit {
     'homeTeam',
   ];
 
-  constructor(private scheduleService: ScheduleService) { }
+  constructor(private backendService: BackendService) { }
 
   ngOnInit() {
     if (this.games === null) {
@@ -44,7 +44,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   public getGames(): void {
-    this.scheduleService.getGames(this.teamFilter)
+    this.backendService.getGames(this.teamFilter)
     .subscribe((games: Game[]) => {
       console.log(`Retrieving games. Count: ${games.length}`);
       this.games = games
@@ -52,7 +52,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   public getTeams(): void {
-    this.scheduleService.getTeams()
+    this.backendService.getTeams()
     .subscribe((teams: Team[]) => {
       console.log(`Retrieving teams. Count: ${teams.length}`);
 

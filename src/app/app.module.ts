@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   MatSelectModule,
   MatSidenavModule,
+  MatSortModule,
   MatTableModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -60,6 +61,7 @@ import { DemoModeInterceptor } from './demo/interceptor/http.interceptor';
     AppRoutingModule,
     MatTableModule,
     MatSelectModule,
+    MatSortModule,
     MatSidenavModule,
     HttpClientModule,
     FormsModule,

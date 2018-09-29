@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ScheduleService } from '../../services/schedule.service';
+import { BackendService } from '../../services/backend.service';
 import { Game } from '../../model/game';
 
 @Component({
@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   upcomingGames: Game[] = [];
   recentGames: Game[] = [];
 
-  constructor(private scheduleService: ScheduleService) { }
+  constructor(private backendService: BackendService) { }
 
   ngOnInit() {
     this.getUpcomingGames();
@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUpcomingGames(): void {
-    this.scheduleService.getGames(-1)
+    this.backendService.getGames(-1)
     .subscribe(games => this.upcomingGames = games.filter( function(game) {
 
       //TODO: Test this code on real-ish data
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getRecentGames(): void {
-    this.scheduleService.getGames(-1)
+    this.backendService.getGames(-1)
     .subscribe(games => this.recentGames = games.filter( function(game) {
 
       //TODO: Test this code on real-ish data

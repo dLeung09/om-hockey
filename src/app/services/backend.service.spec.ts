@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ScheduleService } from './schedule.service';
+import { ScheduleService } from './backend.service';
 
 describe('ScheduleService', () => {
   beforeEach(() => {
