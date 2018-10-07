@@ -92,10 +92,13 @@ export class DemoModeInterceptor implements HttpInterceptor {
       return null;
     }
 
-    let teamName = teamNames[0];
+    let teamName = teamNames[0].name;
 
     let filteredGames = this.games.filter( (game) => {
-      return (game.homeTeam) === (teamName.name) || (game.awayTeam) === (teamName.name);
+      let homeTeam = game.homeTeam.name;
+      let awayTeam = game.awayTeam.name;
+      return homeTeam === teamName || awayTeam === teamName;
+      //return (game.homeTeam) === (teamName.name) || (game.awayTeam) === (teamName.name);
     });
 
     return filteredGames;

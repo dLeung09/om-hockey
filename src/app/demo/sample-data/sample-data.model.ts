@@ -1,20 +1,103 @@
 export namespace SampleData {
+
+
   export const Teams = JSON.stringify([
     {
-      id: 0, name: "Spare List"
+      id: 0,
+      name: "Spare List"
     },
     {
-      id: 1, name: "Sean & Gord's Gang"
+      id: 1,
+      name: "Cliff's 27's",
+      gamesPlayed: 30,
+      wins: 17,
+      losses: 10,
+      ties: 3,
+      goalsFor: 170,
+      goalsAgainst: 166,
+      streak: { streakType: "L", streakCount: 1 },
+      lastTen: [
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 2,	homeScore: 6,	homeTeam: "Cliff's 27's" },
+        { awayTeam: "Keith's Torys",              awayScore: 7,	homeScore: 5,	homeTeam: "Cliff's 27's" },
+        { awayTeam: "Cliff's 27's",               awayScore: 7,	homeScore: 7,	homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Cliff's 27's",               awayScore: 2,	homeScore: 3,	homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Cliff's 27's",               awayScore: 8,	homeScore: 5,	homeTeam: "Keith's Torys" },
+        { awayTeam: "Luc's Leeds & Grenvillers",  awayScore: 4,	homeScore: 7,	homeTeam: "Cliff's 27's" },
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 5,	homeScore: 8,	homeTeam: "Cliff's 27's" },
+        { awayTeam: "Keith's Torys",              awayScore: 5,	homeScore: 6,	homeTeam: "Cliff's 27's" },
+        { awayTeam: "Cliff's 27's",               awayScore: 1,	homeScore: 3,	homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Cliff's 27's",               awayScore: 3,	homeScore: 4,	homeTeam: "Sean & Gord's Gang" },
+      ]
     },
     {
-      id: 2, name: "Luc's Leeds & Grenvillers"
+      id: 2,
+      name: "Keith's Torys",
+      gamesPlayed: 30,
+      wins: 9,
+      losses: 18,
+      ties: 3,
+      goalsFor: 151,
+      goalsAgainst: 188,
+      streak: { streakType: "W", streakCount: 1 },
+      lastTen: [
+        { awayTeam: "Keith's Torys",              awayScore: 4,	homeScore: 9,	homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Keith's Torys",              awayScore: 7,	homeScore: 5,	homeTeam: "Cliff's 27's" },
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 8,	homeScore: 4,	homeTeam: "Keith's Torys" },
+        { awayTeam: "Luc's Leeds & Grenvillers",  awayScore: 6,	homeScore: 9,	homeTeam: "Keith's Torys" },
+        { awayTeam: "Cliff's 27's",               awayScore: 8,	homeScore: 5,	homeTeam: "Keith's Torys" },
+        { awayTeam: "Keith's Torys",              awayScore: 4,	homeScore: 11,	homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Keith's Torys",              awayScore: 2,	homeScore: 7,	homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Keith's Torys",              awayScore: 5,	homeScore: 6,	homeTeam: "Cliff's 27's" },
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 6,	homeScore: 3,	homeTeam: "Keith's Torys" },
+        { awayTeam: "Luc's Leeds & Grenvillers",  awayScore: 4,	homeScore: 11,	homeTeam: "Keith's Torys" },
+      ]
     },
     {
-      id: 3, name: "Cliff's 27's"
+      id: 3,
+      name: "Luc's Leeds & Grenvillers",
+      gamesPlayed: 30,
+      wins: 11,
+      losses: 17,
+      ties: 2,
+      goalsFor: 160,
+      goalsAgainst: 173,
+      streak: { streakType: "L", streakCount: 1 },
+      lastTen: [
+        { awayTeam: "Keith's Torys",               awayScore: 4,   homeScore: 5,   homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Luc's Leeds & Grenvillers",   awayScore: 8,   homeScore: 7,   homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Cliff's 27's",                awayScore: 7,   homeScore: 7,   homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Luc's Leeds & Grenvillers",   awayScore: 6,   homeScore: 9,   homeTeam: "Keith's Torys" },
+        { awayTeam: "Sean & Gord's Gang",          awayScore: 5,   homeScore: 4,   homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Luc's Leeds & Grenvillers",   awayScore: 4,   homeScore: 7,   homeTeam: "Cliff's 27's" },
+        { awayTeam: "Keith's Torys",               awayScore: 2,   homeScore: 7,   homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Luc's Leeds & Grenvillers",   awayScore: 1,   homeScore: 9,   homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Cliff's 27's",                awayScore: 1,   homeScore: 3,   homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Luc's Leeds & Grenvillers",   awayScore: 4,   homeScore: 11,  homeTeam: "Keith's Torys" },
+      ]
     },
     {
-      id: 4, name: "Keith's Torys"
-    }
+      id: 4,
+      name: "Sean & Gord's Gang",
+      gamesPlayed: 30,
+      wins: 18,
+      losses: 10,
+      ties: 2,
+      goalsFor: 186,
+      goalsAgainst: 140,
+      streak: { streakType: "W", streakCount: 3 },
+      lastTen: [
+        { awayTeam: "Keith's Torys",              awayScore: 4, homeScore: 9, homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Luc's Leeds & Grenvillers",  awayScore: 8, homeScore: 7, homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 8, homeScore: 4, homeTeam: "Keith's Torys" },
+        { awayTeam: "Cliff's 27's",               awayScore: 2, homeScore: 3, homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 5, homeScore: 4, homeTeam: "Luc's Leeds & Grenvillers" },
+        { awayTeam: "Keith's Torys",              awayScore: 4, homeScore: 11, homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 5, homeScore: 8, homeTeam: "Cliff's 27's" },
+        { awayTeam: "Luc's Leeds & Grenvillers",  awayScore: 1, homeScore: 9, homeTeam: "Sean & Gord's Gang" },
+        { awayTeam: "Sean & Gord's Gang",         awayScore: 6, homeScore: 3, homeTeam: "Keith's Torys" },
+        { awayTeam: "Cliff's 27's",               awayScore: 3, homeScore: 4, homeTeam: "Sean & Gord's Gang" },
+      ]
+    },
   ]);
 
   export const Games = JSON.stringify([

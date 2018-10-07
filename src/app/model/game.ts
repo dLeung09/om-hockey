@@ -5,10 +5,10 @@ export interface Game {
   id: number;
   date: Date;
   gameType: GameType;
-  arena: string;
-  awayTeam: string;
+  arena: Arena;
+  awayTeam: Team;
   awayScore: number;
-  homeTeam: string;
+  homeTeam: Team;
   homeScore: number;
 }
 
