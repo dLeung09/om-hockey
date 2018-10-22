@@ -9,10 +9,10 @@ export interface Player {
   assistsSeason: number;
   pointsSeason: number;
   penaltiesSeason: number;
-  gamesPlayedCareer: number;
-  goalsCareer: number;
-  assistsCareer: number;
-  pointsCareer: number;
-  penalteisCareer: number;
+  gamesPlayedCareer?: number;
+  goalsCareer?: number;
+  assistsCareer?: number;
+  pointsCareer?: number;
+  penalteisCareer?: number;
   active: boolean;
 }

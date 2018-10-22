@@ -29,16 +29,16 @@ export class StandingsComponent implements OnInit {
     'lastTen',
   ];
 
-  @ViewChild(MatSort) sort: MatSort
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private backendService: BackendService) { }
 
   ngOnInit() {
     if (this.teams === null) {
       this.getTeams();
-      this.datasource = new MatTableDataSource(this.teams);
     }
 
+    this.datasource = new MatTableDataSource(this.teams);
     this.datasource.sort = this.sort;
   }
 
@@ -46,26 +46,6 @@ export class StandingsComponent implements OnInit {
     this.backendService.getTeams()
     .subscribe( (teams: Team[]) => {
       console.log("Retrieving teams. Count:", teams.length);
-
-      teams.sort( (a: Team, b: Team) => {
-        let pointsA = this.getPoints(a);
-        let pointsB = this.getPoints(b);
-
-        if (pointsB - pointsA !== 0) {
-          return pointsB - pointsA;
-        }
-
-        if (b.gamesPlayed - a.gamesPlayed !== 0) {
-          return b.gamesPlayed - a.gamesPlayed;
-        }
-
-        if (b.wins - a.wins !== 0) {
-          return b.wins - a.wins;
-        }
-
-        return (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst);
-
-      });
 
       this.teams = teams;
     });

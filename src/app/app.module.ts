@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
   MatSortModule,
@@ -56,15 +58,17 @@ import { DemoModeInterceptor } from './demo/interceptor/http.interceptor';
     ContactInfoComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    MatTableModule,
+    FormsModule,
+    HttpClientModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatSortModule,
     MatSidenavModule,
-    HttpClientModule,
-    FormsModule,
+    MatTableModule,
   ],
   providers: [
     {

@@ -1,3 +1,51 @@
-<p>
-  player-stats works!
-</p>
+<div class="player-stats-component">
+
+    <div class="schedule-table">
+        <mat-table mat-table [dataSource]="datasource" matSort matSortActive='points' matSortDisableClear>
+
+            <ng-container matColumnDef="player">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="team">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Team</th>
+                <td mat-cell *matCellDef="let element">{{ element.team.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="gamesPlayed">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>GP</th>
+                <td mat-cell *matCellDef="let element">{{ element.gamesPlayedSeason }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="goals">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>G</th>
+                <td mat-cell *matCellDef="let element">{{ element.goalsSeason }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="assists">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>A</th>
+                <td mat-cell *matCellDef="let element">{{ element.assistsSeason }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="points">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>P</th>
+                <td mat-cell *matCellDef="let element">{{ element.pointsSeason }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="penalties">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>PIM</th>
+                <td mat-cell *matCellDef="let element">{{ element.penaltiesSeason }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="pointsPerGame">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>PPG</th>
+                <td mat-cell *matCellDef="let element">{{ (element.pointsSeason / element.gamesPlayedSeason).toFixed(2) }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </mat-table>
+    </div>
+
+</div>
