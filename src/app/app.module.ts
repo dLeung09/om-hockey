@@ -2,12 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
   MatSortModule,
   MatTableModule,
+  MatToolbarModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -63,12 +67,16 @@ import { DemoModeInterceptor } from './demo/interceptor/http.interceptor';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSortModule,
     MatSidenavModule,
     MatTableModule,
+    MatToolbarModule,
   ],
   providers: [
     {

@@ -1,8 +1,8 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, map, finalize } from 'rxjs/operators';
 import { Player } from '../model/player';
-import { BackendService } from './backend.service';
+import { DataService } from './data.service';
 
 export class PlayersDataSource implements DataSource<Player> {
 
@@ -11,20 +11,29 @@ export class PlayersDataSource implements DataSource<Player> {
 
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private backendService: BackendService) { }
+  constructor(private dataService: DataService) { }
 
   public loadPlayers(
     team: string,
     sortColumn: string,
-    sortDirection: string,
-    pageIndex: number,
-    pageSize: number
+    sortDirection: string
   ): void {
     this.loadingSubject.next(true);
 
-    this.backendService.getPlayersSorted(team, '', sortColumn, sortDirection, pageIndex, pageSize)
+    this.dataService.getPlayersSorted(team, '', sortColumn, sortDirection)
     .pipe(
       catchError(() => of([])),
+      map((players) => {
+        players.forEach(player => {
+          if (player.gamesPlayed < 1) {
+            player.pointsPerGame = 0;
+            return;
+          }
+
+          player.pointsPerGame = (player.points / player.gamesPlayed);
+        });
+        return players;
+      }),
       finalize(() => this.loadingSubject.next(false))
     )
     .subscribe(players => this.playersSubject.next(players));

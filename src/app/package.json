@@ -1,0 +1,12 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "^7.1.0",
+    "@angular/cdk": "^7.1.0",
+    "@angular/material": "^7.1.0",
+    "material-design-icons": "^3.0.1"
+  }
+}

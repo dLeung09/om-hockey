@@ -1,8 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Input, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material';
+import { Observable } from 'rxjs';
+import { merge, tap } from 'rxjs/operators';
 
-import { BackendService } from '../../services/backend.service';
 import { Game } from '../../model/game';
 import { Team } from '../../model/team';
+import { GamesDataSource } from '../../services/games.datasource';
+import { DataService } from '../../services/data.service';
 
 const DefaultTeams: Team[] = [
   { "id": -1, "name": "All Teams", "players": [] }
@@ -13,12 +17,13 @@ const DefaultTeams: Team[] = [
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.css']
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, AfterViewInit {
+
+  private teams: Team[] = null;
+  public teamFilter: string;
 
   @Input() games: Game[] = null;
-  private teams: Team[] = null;
-
-  public teamFilter: number = -1;
+  private datasource: GamesDataSource;
 
   private displayedColumns = [
     'date',
@@ -31,30 +36,53 @@ export class ScheduleComponent implements OnInit {
     'homeTeam',
   ];
 
-  constructor(private backendService: BackendService) { }
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    if (this.games === null) {
-      this.getGames();
-    }
+    this.datasource = new GamesDataSource(this.dataService);
+    this.datasource.loadGames('', 'date', 'asc');
 
     if (this.teams === null) {
       this.getTeams();
     }
+
+    this.teamFilter = this.teams[0].name;
+  }
+
+  ngAfterViewInit() {
+    //this.sort.sortChange
+    //  .pipe(
+    //    tap(() => console.log('DAVID: sort', this.sort)),
+    //    tap(() => this.loadGames())
+    //  )
+    //.subscribe();
+  }
+
+  private loadGames(): void {
+    let team = this.teamFilter;
+    if (team === 'All Teams') {
+      team = '';
+    } 
+
+    console.log('[DAVID] team', team);
+
+    this.datasource.loadGames(
+      team,
+      'date',
+      'asc'
+    );
   }
 
   public getGames(): void {
-    this.backendService.getGames(this.teamFilter)
-    .subscribe((games: Game[]) => {
-      console.log(`Retrieving games. Count: ${games.length}`);
-      this.games = games
-    });
+    this.loadGames();
   }
 
   public getTeams(): void {
-    this.backendService.getTeams()
+    this.dataService.getTeamsSorted('name', 'asc')
     .subscribe((teams: Team[]) => {
-      console.log(`Retrieving teams. Count: ${teams.length}`);
+      console.log('Rretrieving teams. Count:', teams.length);
 
       this.teams = DefaultTeams.concat(teams);
     });

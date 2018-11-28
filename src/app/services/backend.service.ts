@@ -18,19 +18,14 @@ interface PlayerSort {
 })
 export class BackendService {
 
-  private scheduleUrl = 'api/1/schedule';
+  private gamesUrl = 'api/1/games';
   private teamsUrl = 'api/1/teams';
-  private playerUrl = 'api/1/players';
+  private playersUrl = 'api/1/players';
 
   constructor(private http: HttpClient) { }
 
-  public getGames(teamId: number): Observable<Game[]> {
-    let url = this.scheduleUrl;
-    if (teamId > -1) {
-      url = url.concat(`/${teamId}`);
-    }
-
-    return this.http.get<Game[]>(url)
+  public getGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(this.gamesUrl)
     .pipe(
       catchError(this.handleError('getGames', []))
     );
@@ -44,37 +39,13 @@ export class BackendService {
   }
 
   public getPlayers(): Observable<Player[]> {
-    let url = this.playerUrl;
-
-    return this.http.get<Player[]>(url)
-      .pipe(
-        catchError(this.handleError('getPlayers', []))
-      );
-  }
-
-  public getPlayersSorted(
-    team: string,
-    player?: string,
-    sortColumn = 'points',
-    sortDirection = 'desc',
-    pageIndex = 0,
-    pageSize = 25
-  ): Observable<Player[]> {
-    return this.http.get(this.playerUrl, {
-      params: new HttpParams()
-      .set('team', team)
-      .set('player', player)
-      .set('sortCol', sortColumn)
-      .set('sortDir', sortDirection)
-      .set('pageNumber', pageIndex.toString())
-      .set('pageSize', pageSize.toString())
-    })
+    return this.http.get<Player[]>(this.playersUrl)
     .pipe(
-      map(res => res['payload'])
+      catchError(this.handleError('getPlayers', []))
     );
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T> (operation = 'request', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
 

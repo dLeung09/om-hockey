@@ -1,19 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material';
+import { Observable } from 'rxjs';
+import { merge, tap } from 'rxjs/operators';
 
-import { BackendService } from '../../services/backend.service';
 import { Game } from '../../model/game';
 import { Team, GameScore } from '../../model/team';
+import { TeamDataSource } from '../../services/teams.datasource';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-standings',
   templateUrl: './standings.component.html',
   styleUrls: ['./standings.component.css']
 })
-export class StandingsComponent implements OnInit {
+export class StandingsComponent implements OnInit, AfterViewInit {
 
   private teams: Team[] = null;
-  private datasource: MatTableDataSource<Team>;
+  private datasource: TeamDataSource;
 
   private displayedColumns = [
     'team',
@@ -31,24 +34,28 @@ export class StandingsComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private backendService: BackendService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    if (this.teams === null) {
-      this.getTeams();
-    }
-
-    this.datasource = new MatTableDataSource(this.teams);
-    this.datasource.sort = this.sort;
+    this.datasource = new TeamDataSource(this.dataService);
+    this.datasource.loadTeams('points', 'desc');
+    this.sort.disableClear = true;
   }
 
-  public getTeams(): void {
-    this.backendService.getTeams()
-    .subscribe( (teams: Team[]) => {
-      console.log("Retrieving teams. Count:", teams.length);
+  ngAfterViewInit() {
+    this.sort.sortChange
+      .pipe(
+        //tap(() => console.log('DAVID: sort', this.sort)),
+        tap(() => this.loadPlayers())
+      )
+    .subscribe();
+  }
 
-      this.teams = teams;
-    });
+  private loadPlayers(): void {
+    this.datasource.loadTeams(
+      this.sort.active,
+      this.sort.direction
+    );
   }
 
   private getPoints(team: Team) : number {

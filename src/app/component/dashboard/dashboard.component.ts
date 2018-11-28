@@ -21,29 +21,29 @@ export class DashboardComponent implements OnInit {
   }
 
   getUpcomingGames(): void {
-    this.backendService.getGames(-1)
-    .subscribe(games => this.upcomingGames = games.filter( function(game) {
+    //this.backendService.getGames(-1)
+    //.subscribe(games => this.upcomingGames = games.filter( function(game) {
 
-      //TODO: Test this code on real-ish data
-      //let today = new Date();
-      //return game.date >= today && game.date < new Date(today.getDate() + 3);
+    //  //TODO: Test this code on real-ish data
+    //  //let today = new Date();
+    //  //return game.date >= today && game.date < new Date(today.getDate() + 3);
 
-      //TODO: Remove this
-      return game.id > 55;
-    }));
+    //  //TODO: Remove this
+    //  return game.id > 55;
+    //}));
   }
 
   getRecentGames(): void {
-    this.backendService.getGames(-1)
-    .subscribe(games => this.recentGames = games.filter( function(game) {
+    //this.backendService.getGames(-1)
+    //.subscribe(games => this.recentGames = games.filter( function(game) {
 
-      //TODO: Test this code on real-ish data
-      //let today = new Date();
-      //return game.date >= today && game.date < new Date(today.getDate() + 3);
+    //  //TODO: Test this code on real-ish data
+    //  //let today = new Date();
+    //  //return game.date >= today && game.date < new Date(today.getDate() + 3);
 
-      //TODO: Remove this
-      return game.id <= 5;
-    }));
+    //  //TODO: Remove this
+    //  return game.id <= 5;
+    //}));
   }
 
 }

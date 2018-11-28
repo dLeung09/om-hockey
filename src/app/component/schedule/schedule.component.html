@@ -4,7 +4,7 @@
     <div class="schedule-filter">
         <mat-form-field>
             <mat-select [(value)]="teamFilter">
-                <mat-option *ngFor="let team of teams" [value]="team.id" (click)="getGames()">
+                <mat-option *ngFor="let team of teams" [value]="team.name" (click)="getGames()">
                     {{ team.name }}
                 </mat-option>
             </mat-select>
@@ -12,7 +12,7 @@
     </div>
 
     <div class="schedule-table">
-        <table mat-table [dataSource]="games">
+        <table mat-table [dataSource]="datasource" matSort>
 
             <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef>Date</th>
