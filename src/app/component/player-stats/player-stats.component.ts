@@ -7,6 +7,7 @@ import {merge} from "rxjs/operators";
 
 
 import { PlayersDataSource } from '../../services/players.datasource';
+import { DataService } from '../../services/data.service';
 import { BackendService } from '../../services/backend.service';
 import { Player } from '../../model/player';
 
@@ -36,20 +37,20 @@ export class PlayerStatsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private backendService: BackendService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.datasource = new PlayersDataSource(this.backendService);
-    this.datasource.loadPlayers('', 'points', 'desc', 0, 25);
+    this.datasource = new PlayersDataSource(this.dataService);
+    this.datasource.loadPlayers('', 'points', 'desc');
   }
 
   ngAfterViewInit() {
-    this.sort.sortChange
-      .pipe(
-        tap(() => console.log("DAVID: sort", this.sort)),
-        tap(() => this.loadPlayers())
-      )
-    .subscribe();
+    //this.sort.sortChange
+    //  .pipe(
+    //    tap(() => console.log("DAVID: sort", this.sort)),
+    //    tap(() => this.loadPlayers())
+    //  )
+    //.subscribe();
   }
 
   private loadPlayers(): void {
@@ -57,8 +58,6 @@ export class PlayerStatsComponent implements OnInit, AfterViewInit {
       '',
       this.sort.active,
       this.sort.direction,
-      0,
-      25
     );
   }
 }

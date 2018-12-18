@@ -1,0 +1,26 @@
+<div class='table-component'>
+    <table mat-table [dataSource]='datasource' matSort>
+        <ng-container matColumnDef="{{column.columnDef}}" *ngFor='let column of columns'>
+
+            <div *ngIf="column.isSortable">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [disableClear]='true'
+                    [start] ='desc'>
+                    {{column.header}}
+                </th>
+            </div>
+
+            <div *ngIf="!column.isSortable">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{column.header}}
+                </th>
+            </div>
+
+            <td mat-cell *matCellDef='let element'>{{ column.cellData(element) }}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef='displayColumns'></tr>
+        <tr mat-row *matRowDef='let row; columns: displayColumns'></tr>
+    </table>
+
+</div>

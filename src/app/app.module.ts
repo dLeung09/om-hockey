@@ -35,6 +35,7 @@ import { UpcomingEventsComponent } from './component/upcoming-events/upcoming-ev
 import { ArenaMapsComponent } from './component/arena-maps/arena-maps.component';
 import { RulesRegulationsComponent } from './component/rules-regulations/rules-regulations.component';
 import { ContactInfoComponent } from './component/contact-info/contact-info.component';
+import { TableComponent } from './component/generic/table.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { DemoModeInterceptor } from './demo/interceptor/http.interceptor';
@@ -60,6 +61,7 @@ import { DemoModeInterceptor } from './demo/interceptor/http.interceptor';
     ArenaMapsComponent,
     RulesRegulationsComponent,
     ContactInfoComponent,
+    TableComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -4,9 +4,10 @@ import { catchError, finalize } from 'rxjs/operators';
 import { Player } from '../model/player';
 import { Team } from '../model/team';
 import { DataService } from './data.service';
+import { GenericDataSource } from './generic.datasource';
 //import { BackendService } from './backend.service';
 
-export class TeamDataSource implements DataSource<Team> {
+export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team> {
 
   private teamsSubject = new BehaviorSubject<Team[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -16,6 +17,20 @@ export class TeamDataSource implements DataSource<Team> {
   constructor(private dataService: DataService) { }
   //constructor(private backendService: BackendService) { }
 
+  public loadDetails(
+    sortDirection: string,
+    sortColumn = 'points',
+  ): void {
+    this.loadingSubject.next(true);
+
+    this.dataService.getTeamsSorted(sortColumn, sortDirection)
+    .pipe(
+      catchError(() => of([])),
+      finalize(() => this.loadingSubject.next(false))
+    )
+    .subscribe(teams => this.teamsSubject.next(teams));
+  }
+
   public loadTeams(
     sortColumn: string,
     sortDirection: string
@@ -23,7 +38,6 @@ export class TeamDataSource implements DataSource<Team> {
     this.loadingSubject.next(true);
 
     this.dataService.getTeamsSorted(sortColumn, sortDirection)
-    //this.backendService.getTeamsSorted(sortColumn, sortDirection, pageIndex, pageSize)
     .pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))

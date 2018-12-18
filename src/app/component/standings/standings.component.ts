@@ -3,9 +3,10 @@ import { MatSort } from '@angular/material';
 import { Observable } from 'rxjs';
 import { merge, tap } from 'rxjs/operators';
 
+import { TableColumn } from '../../component/generic/table.component';
 import { Game } from '../../model/game';
 import { Team, GameScore } from '../../model/team';
-import { TeamDataSource } from '../../services/teams.datasource';
+import { TeamsDataSource } from '../../services/teams.datasource';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -16,20 +17,20 @@ import { DataService } from '../../services/data.service';
 export class StandingsComponent implements OnInit, AfterViewInit {
 
   private teams: Team[] = null;
-  private datasource: TeamDataSource;
+  private datasource: TeamsDataSource;
 
-  private displayedColumns = [
-    'team',
-    'gamesPlayed',
-    'wins',
-    'losses',
-    'ties',
-    'points',
-    'goalsFor',
-    'goalsAgainst',
-    'streak',
-    'lastFive',
-    'lastTen',
+  private columns = [
+    { columnDef: 'team', header: 'Team', cellData: (element: Team) => `${element.name}`, isSortable: false },
+    { columnDef: 'gamesPlayed', header: 'GP', cellData: (element: Team) => `${element.gamesPlayed}`, isSortable: true },
+    { columnDef: 'wins', header: 'W', cellData: (element: Team) => `${element.wins}`, isSortable: true },
+    { columnDef: 'losses', header: 'L', cellData: (element: Team) => `${element.losses}`, isSortable: true },
+    { columnDef: 'ties', header: 'T', cellData: (element: Team) => `${element.ties}`, isSortable: true },
+    { columnDef: 'points', header: 'Pts', cellData: (element: Team) => `${this.getPoints(element)}`, isSortable: true },
+    { columnDef: 'goalsFor', header: 'GF', cellData: (element: Team) => `${element.goalsFor}`, isSortable: true },
+    { columnDef: 'goalsAgainst', header: 'GA', cellData: (element: Team) => `${element.goalsAgainst}`, isSortable: true },
+    { columnDef: 'streak', header: 'Streak', cellData: (element: Team) => `${this.getStreak(element)}`, isSortable: false },
+    { columnDef: 'lastFive', header: 'Last 5', cellData: (element: Team) => `${this.getLastFive(element)}`, isSortable: false },
+    { columnDef: 'lastTen', header: 'Last 10', cellData: (element: Team) => `${this.getLastTen(element)}`, isSortable: false },
   ];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -37,26 +38,18 @@ export class StandingsComponent implements OnInit, AfterViewInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.datasource = new TeamDataSource(this.dataService);
+    this.datasource = new TeamsDataSource(this.dataService);
     this.datasource.loadTeams('points', 'desc');
-    this.sort.disableClear = true;
   }
 
-  ngAfterViewInit() {
-    this.sort.sortChange
-      .pipe(
-        //tap(() => console.log('DAVID: sort', this.sort)),
-        tap(() => this.loadPlayers())
-      )
-    .subscribe();
-  }
+  ngAfterViewInit() { }
 
-  private loadPlayers(): void {
-    this.datasource.loadTeams(
-      this.sort.active,
-      this.sort.direction
-    );
-  }
+  // private loadPlayers(): void {
+  //   this.datasource.loadTeams(
+  //     this.sort.active,
+  //     this.sort.direction
+  //   );
+  // }
 
   private getPoints(team: Team) : number {
     return team.wins * 2 + team.ties;
@@ -68,7 +61,7 @@ export class StandingsComponent implements OnInit, AfterViewInit {
   // Default is 'W0'
   private getStreak(team: Team) : string {
     if (team.streak == null || team.streak.streakType == null || team.streak.streakCount < 0) {
-      return "W0";
+      return 'W0';
     }
 
     return `${team.streak.streakType}${team.streak.streakCount}`;

@@ -1,0 +1,12 @@
+.table-component {
+    overflow: auto;
+    height: 750px;
+}
+
+table { 
+    width: 100%;
+}
+
+.table-header {
+    background-color: white;
+}
