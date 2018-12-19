@@ -8,9 +8,9 @@ import { Team } from '../../model/team';
 import { GamesDataSource } from '../../services/games.datasource';
 import { DataService } from '../../services/data.service';
 
-const DefaultTeams: Team[] = [
-  { "id": -1, "name": "All Teams", "players": [] }
-];
+// const DefaultTeams: Team[] = [
+//   { "id": -1, "name": "All Teams", "players": [] }
+// ];
 
 @Component({
   selector: 'app-schedule',
@@ -66,7 +66,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
       team = '';
     } 
 
-    console.log('[DAVID] team', team);
+    // console.log('[DAVID] team', team);
 
     this.datasource.loadGames(
       team,
@@ -82,9 +82,9 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   public getTeams(): void {
     this.dataService.getTeamsSorted('name', 'asc')
     .subscribe((teams: Team[]) => {
-      console.log('Rretrieving teams. Count:', teams.length);
+      // console.log('Rretrieving teams. Count:', teams.length);
 
-      this.teams = DefaultTeams.concat(teams);
+      // this.teams = DefaultTeams.concat(teams);
     });
   }
 

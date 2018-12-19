@@ -25,7 +25,7 @@ export class StandingsComponent implements OnInit, AfterViewInit {
     { columnDef: 'wins', header: 'W', cellData: (element: Team) => `${element.wins}`, isSortable: true },
     { columnDef: 'losses', header: 'L', cellData: (element: Team) => `${element.losses}`, isSortable: true },
     { columnDef: 'ties', header: 'T', cellData: (element: Team) => `${element.ties}`, isSortable: true },
-    { columnDef: 'points', header: 'Pts', cellData: (element: Team) => `${this.getPoints(element)}`, isSortable: true },
+    { columnDef: 'points', header: 'Pts', cellData: (element: Team) => `${element.points}`, isSortable: true },
     { columnDef: 'goalsFor', header: 'GF', cellData: (element: Team) => `${element.goalsFor}`, isSortable: true },
     { columnDef: 'goalsAgainst', header: 'GA', cellData: (element: Team) => `${element.goalsAgainst}`, isSortable: true },
     { columnDef: 'streak', header: 'Streak', cellData: (element: Team) => `${this.getStreak(element)}`, isSortable: false },
@@ -39,17 +39,9 @@ export class StandingsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.datasource = new TeamsDataSource(this.dataService);
-    this.datasource.loadTeams('points', 'desc');
   }
 
   ngAfterViewInit() { }
-
-  // private loadPlayers(): void {
-  //   this.datasource.loadTeams(
-  //     this.sort.active,
-  //     this.sort.direction
-  //   );
-  // }
 
   private getPoints(team: Team) : number {
     return team.wins * 2 + team.ties;

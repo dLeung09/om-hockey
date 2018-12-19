@@ -38,7 +38,7 @@ export class DemoModeInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(`${request.method} request received: ${request.url}`);
+    // console.log(`${request.method} request received: ${request.url}`);
 
     const baseUrl = "api/1";
     const gamesRegex = new RegExp(`${baseUrl}\\/games`);

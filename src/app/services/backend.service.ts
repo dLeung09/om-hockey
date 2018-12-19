@@ -34,6 +34,13 @@ export class BackendService {
   public getTeams(): Observable<Team[]> {
     return this.http.get<Team[]>(this.teamsUrl)
     .pipe(
+      map(teams => {
+        teams.forEach(team => {
+          team.points = team.wins * 2 + team.ties;
+        });
+
+        return teams;
+      }),
       catchError(this.handleError('getTeams', []))
     );
   }

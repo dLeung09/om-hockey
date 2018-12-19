@@ -24,6 +24,25 @@ export class DataService {
     this._teams = [];
   }
 
+  public getTeamsSorted(
+    sortColumn: string,
+    sortDirection: string,
+  ): Observable<Team[]> {
+    let response: Observable<Team[]>;
+
+    if (this._teams == null || this._teams.length < 1) {
+      response = this.backendService.getTeams().pipe(
+        tap(teams => { this._teams = teams; } )
+      );
+    } else {
+      response = of(this._teams);
+    }
+
+    return response.pipe(
+      map(this.sortByColumn(sortColumn, sortDirection)),
+    );
+  }
+
   public getPlayersSorted(
     team: string,
     player: string,
@@ -40,14 +59,7 @@ export class DataService {
       response = of(this._players);
     }
 
-    console.log('[DAVID] team filter', team);
-    console.log('[DAVID] player filter', player);
-    console.log('[DAVID] sorting', sortColumn, sortDirection);
-
     return response.pipe(
-      tap(players => { console.log('[DAVID] object', players[0]); }),
-      tap(players => { console.log('[DAVID] key', sortColumn); }),
-      tap(players => { console.log('[DAVID] value', players[0][sortColumn]); }),
       map(this.filterByTeam(team, 'team')),
       map(this.filterByPlayer(player, 'name')),
       map(this.sortByColumn(sortColumn, sortDirection))
@@ -85,25 +97,6 @@ export class DataService {
     );
   }
 
-  public getTeamsSorted(
-    sortColumn: string,
-    sortDirection: string,
-  ): Observable<Team[]> {
-    let response: Observable<Team[]>;
-
-    if (this._teams == null || this._teams.length < 1) {
-      response = this.backendService.getTeams().pipe(
-        tap(teams => { this._teams = teams; } )
-      );
-    } else {
-      response = of(this._teams);
-    }
-
-    return response.pipe(
-      map(this.sortByColumn(sortColumn, sortDirection)),
-    );
-  }
-
   private filterByTeam (teamFilter: string, teamKey: string) {
     return (data: any) => {
       if (teamFilter == null || teamFilter === '') {
@@ -131,7 +124,8 @@ export class DataService {
   private sortByColumn (sortColumn: string, sortDirection: string) {
     return (data: any) => {
       const dataResult = data.sort( (a, b) => {
-        let aObj, bObj;
+        let aObj = a[sortColumn];
+        let bObj = b[sortColumn];
 
         if (sortColumn.match(/date/i)) {
           aObj = new Date(a[sortColumn]);

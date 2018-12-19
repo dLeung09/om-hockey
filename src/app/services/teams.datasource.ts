@@ -5,7 +5,6 @@ import { Player } from '../model/player';
 import { Team } from '../model/team';
 import { DataService } from './data.service';
 import { GenericDataSource } from './generic.datasource';
-//import { BackendService } from './backend.service';
 
 export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team> {
 
@@ -15,7 +14,6 @@ export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private dataService: DataService) { }
-  //constructor(private backendService: BackendService) { }
 
   public loadDetails(
     sortDirection: string,
@@ -31,22 +29,7 @@ export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team
     .subscribe(teams => this.teamsSubject.next(teams));
   }
 
-  public loadTeams(
-    sortColumn: string,
-    sortDirection: string
-  ): void {
-    this.loadingSubject.next(true);
-
-    this.dataService.getTeamsSorted(sortColumn, sortDirection)
-    .pipe(
-      catchError(() => of([])),
-      finalize(() => this.loadingSubject.next(false))
-    )
-    .subscribe(teams => this.teamsSubject.next(teams));
-  }
-
   public connect(collectionViewer: CollectionViewer): Observable<Team[]> {
-    //console.log('Connecting team data source');
     return this.teamsSubject.asObservable();
   }
 

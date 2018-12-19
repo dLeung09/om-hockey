@@ -40,7 +40,7 @@ export class PlayersDataSource implements DataSource<Player> {
   }
 
   public connect(collectionViewer: CollectionViewer): Observable<Player[]> {
-    console.log("Connecting data source");
+    // console.log("Connecting data source");
     return this.playersSubject.asObservable();
   }
 
