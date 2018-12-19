@@ -11,10 +11,4 @@ export interface Player {
   points: number;
   penalties: number;
   pointsPerGame?: number;
-  //gamesPlayedCareer?: number;
-  //goalsCareer?: number;
-  //assistsCareer?: number;
-  //pointsCareer?: number;
-  //penalteisCareer?: number;
-  //active: boolean;
 }

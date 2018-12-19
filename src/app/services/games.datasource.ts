@@ -14,12 +14,14 @@ export class GamesDataSource implements DataSource<Game> {
 
   constructor(private dataService: DataService) { }
 
-  public loadGames(
-    team: string,
+  public loadDetails(
     sortColumn: string,
-    sortDirection: string
+    sortDirection = 'date'
   ): void {
     this.loadingSubject.next(true);
+
+    // TODO: Fix this
+    let team = '';
 
     this.dataService.getGamesSorted(team, sortColumn, sortDirection)
     .pipe(

@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material';
 import { Observable } from 'rxjs';
 import { merge, tap } from 'rxjs/operators';
 
-import { TableColumn } from '../../component/generic/table.component';
 import { Game } from '../../model/game';
 import { Team, GameScore } from '../../model/team';
 import { TeamsDataSource } from '../../services/teams.datasource';
@@ -32,8 +30,6 @@ export class StandingsComponent implements OnInit, AfterViewInit {
     { columnDef: 'lastFive', header: 'Last 5', cellData: (element: Team) => `${this.getLastFive(element)}`, isSortable: false },
     { columnDef: 'lastTen', header: 'Last 10', cellData: (element: Team) => `${this.getLastTen(element)}`, isSortable: false },
   ];
-
-  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private dataService: DataService) { }
 

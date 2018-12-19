@@ -23,13 +23,14 @@ import { ContactInfoComponent } from './component/contact-info/contact-info.comp
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'player-registration', component: PlayerRegistrationComponent },
+    { path: 'player-stats', component: PlayerStatsComponent },
     { path: 'schedule', component: ScheduleComponent },
+
+    { path: 'player-registration', component: PlayerRegistrationComponent },
     { path: 'game-status', component: GameStatusComponent },
     { path: 'teams', component: TeamsComponent },
     { path: 'roster', component: RosterComponent },
     { path: 'standings', component: StandingsComponent },
-    { path: 'player-stats', component: PlayerStatsComponent },
     { path: 'goalie-stats', component: GoalieStatsComponent },
     { path: 'career-stats', component: CareerStatsComponent },
     { path: 'hot-streaks', component: HotStreaksComponent },

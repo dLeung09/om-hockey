@@ -341,7 +341,7 @@ export namespace SampleData {
     { id: 59,  date: "Aug 22, 2018 07:00", gameType: "League",   awayTeam: Cliff27sTeam.name,	        awayScore: 3,	homeScore: 4,	homeTeam: SeanGordGangTeam.name,	        arena: "Nepean Sportsplex - Arena 2 (At the back)" },
     { id: 60,  date: "Aug 23, 2018 07:00", gameType: "Playoff",  awayTeam: KeithToryTeam.name,	        awayScore: 2,	homeScore: 5,	homeTeam: SeanGordGangTeam.name,	        arena: "Walter Baker (Rink A)" },
     { id: 61,  date: "Aug 27, 2018 07:00", gameType: "Playoff",  awayTeam: LucLeedsGrenvillersTeam.name,	awayScore: 2,	homeScore: 7,	homeTeam: Cliff27sTeam.name,	            arena: "Nepean Sportsplex - Arena 3 (Figure Skating Arena)" },
-    { id: 62,  date: "Aug 30, 2018 07:00", gameType: "Playoff",  awayTeam: Cliff27sTeam.name,	        awayScore: 3,	homeScore: 7,	homeTeam: SeanGordGangTeam.name,	        arena: "Walter Baker (Rink A)" }
+    { id: 62,  date: "Aug 30, 2018 07:00", gameType: "Playoff",  awayTeam: Cliff27sTeam.name,	        awayScore: null,	homeScore: null,	homeTeam: SeanGordGangTeam.name,	        arena: "Walter Baker (Rink A)" }
   ]);
 
 }

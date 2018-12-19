@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { merge, tap } from 'rxjs/operators';
 
@@ -22,81 +21,36 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   private teams: Team[] = null;
   public teamFilter: string;
 
-  @Input() games: Game[] = null;
   private datasource: GamesDataSource;
 
-  private displayedColumns = [
-    'date',
-    'time',
-    'type',
-    'arena',
-    'awayTeam',
-    'awayScore',
-    'homeScore',
-    'homeTeam',
+  private columns = [
+    { columnDef: 'date', header: 'Date', cellData: (element: Game) => `${this.formatDate(element.date)}`, isSortable: false },
+    { columnDef: 'time', header: 'Time', cellData: (element: Game) => `${this.formatTime(element.date)}`, isSortable: false },
+    { columnDef: 'type', header: 'Game Type', cellData: (element: Game) => `${element.gameType}`, isSortable: false },
+    { columnDef: 'arena', header: 'Arena', cellData: (element: Game) => `${element.arena}`, isSortable: false },
+    { columnDef: 'awayTeam', header: 'Away Team', cellData: (element: Game) => `${element.awayTeam}`, isSortable: false },
+    { columnDef: 'awayScore', header: 'Away Score', cellData: (element: Game) => `${element.awayScore || '-'}`, isSortable: false },
+    { columnDef: 'homeScore', header: 'Home Score', cellData: (element: Game) => `${element.homeScore || '-'}`, isSortable: false },
+    { columnDef: 'homeTeam', header: 'Home Team', cellData: (element: Game) => `${element.homeTeam}`, isSortable: false },
   ];
-
-  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.datasource = new GamesDataSource(this.dataService);
-    this.datasource.loadGames('', 'date', 'asc');
-
-    if (this.teams === null) {
-      this.getTeams();
-    }
-
-    this.teamFilter = this.teams[0].name;
   }
 
   ngAfterViewInit() {
-    //this.sort.sortChange
-    //  .pipe(
-    //    tap(() => console.log('DAVID: sort', this.sort)),
-    //    tap(() => this.loadGames())
-    //  )
-    //.subscribe();
   }
 
-  private loadGames(): void {
-    let team = this.teamFilter;
-    if (team === 'All Teams') {
-      team = '';
-    } 
-
-    // console.log('[DAVID] team', team);
-
-    this.datasource.loadGames(
-      team,
-      'date',
-      'asc'
-    );
-  }
-
-  public getGames(): void {
-    this.loadGames();
-  }
-
-  public getTeams(): void {
-    this.dataService.getTeamsSorted('name', 'asc')
-    .subscribe((teams: Team[]) => {
-      // console.log('Rretrieving teams. Count:', teams.length);
-
-      // this.teams = DefaultTeams.concat(teams);
-    });
-  }
-
-  private formatDate(dateStr: string) : string {
+  private formatDate(dateStr: Date) : string {
     let date = new Date(dateStr);
     let options = { year: 'numeric', month: 'long', day: 'numeric' };
 
     return date.toLocaleDateString("en-US", options);
   }
 
-  private formatTime(timeStr: string) : string {
-    let time = new Date(timeStr);
+  private formatTime(time: Date) : string {
     let options = { hour: 'numeric', minute: 'numeric' };
 
     return time.toLocaleString("en-US", options);

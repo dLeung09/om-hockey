@@ -48,6 +48,18 @@ export class BackendService {
   public getPlayers(): Observable<Player[]> {
     return this.http.get<Player[]>(this.playersUrl)
     .pipe(
+      map(players => {
+        players.forEach(player => {
+          if (player.gamesPlayed < 1) {
+            player.pointsPerGame = player.points;
+            return;
+          }
+
+          player.pointsPerGame = player.points / player.gamesPlayed;
+        });
+
+        return players;
+      }),
       catchError(this.handleError('getPlayers', []))
     );
   }

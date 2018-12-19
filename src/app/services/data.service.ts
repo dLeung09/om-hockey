@@ -44,8 +44,6 @@ export class DataService {
   }
 
   public getPlayersSorted(
-    team: string,
-    player: string,
     sortColumn: string,
     sortDirection: string,
   ): Observable<Player[]> {
@@ -60,9 +58,7 @@ export class DataService {
     }
 
     return response.pipe(
-      map(this.filterByTeam(team, 'team')),
-      map(this.filterByPlayer(player, 'name')),
-      map(this.sortByColumn(sortColumn, sortDirection))
+      map(this.sortByColumn(sortColumn, sortDirection)),
     );
   }
 

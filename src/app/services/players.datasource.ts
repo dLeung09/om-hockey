@@ -13,34 +13,21 @@ export class PlayersDataSource implements DataSource<Player> {
 
   constructor(private dataService: DataService) { }
 
-  public loadPlayers(
-    team: string,
-    sortColumn: string,
-    sortDirection: string
+  public loadDetails(
+    sortDirection: string,
+    sortColumn = 'points'
   ): void {
     this.loadingSubject.next(true);
 
-    this.dataService.getPlayersSorted(team, '', sortColumn, sortDirection)
+    this.dataService.getPlayersSorted(sortColumn, sortDirection)
     .pipe(
       catchError(() => of([])),
-      map((players) => {
-        players.forEach(player => {
-          if (player.gamesPlayed < 1) {
-            player.pointsPerGame = 0;
-            return;
-          }
-
-          player.pointsPerGame = (player.points / player.gamesPlayed);
-        });
-        return players;
-      }),
       finalize(() => this.loadingSubject.next(false))
     )
     .subscribe(players => this.playersSubject.next(players));
   }
 
   public connect(collectionViewer: CollectionViewer): Observable<Player[]> {
-    // console.log("Connecting data source");
     return this.playersSubject.asObservable();
   }
 

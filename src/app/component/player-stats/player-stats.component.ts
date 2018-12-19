@@ -1,15 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-//import { merge, tap } from 'rxjs/operators';
-import {merge} from "rxjs/operators";
+import { merge, tap } from 'rxjs/operators';
 
-
+import { Player } from '../../model/player';
 import { PlayersDataSource } from '../../services/players.datasource';
 import { DataService } from '../../services/data.service';
-import { BackendService } from '../../services/backend.service';
-import { Player } from '../../model/player';
 
 @Component({
   selector: 'app-player-stats',
@@ -21,43 +16,22 @@ export class PlayerStatsComponent implements OnInit, AfterViewInit {
   private players: Player[] = null;
   private datasource: PlayersDataSource;
 
-  private selectedColumn: string;
-
-  private displayedColumns = [
-    'player',
-    'team',
-    'gamesPlayed',
-    'goals',
-    'assists',
-    'points',
-    'penalties',
-    'pointsPerGame'
+  private columns = [
+    { columnDef: 'name', header: 'Name', cellData: (element: Player) => `${element.name}`, isSortable: true },
+    { columnDef: 'team', header: 'Team', cellData: (element: Player) => `${element.team}`, isSortable: true },
+    { columnDef: 'gamesPlayed', header: 'GP', cellData: (element: Player) => `${element.gamesPlayed}`, isSortable: true },
+    { columnDef: 'goals', header: 'G', cellData: (element: Player) => `${element.goals}`, isSortable: true },
+    { columnDef: 'assists', header: 'A', cellData: (element: Player) => `${element.assists}`, isSortable: true },
+    { columnDef: 'points', header: 'P', cellData: (element: Player) => `${element.points}`, isSortable: true },
+    { columnDef: 'penalties', header: 'PIM', cellData: (element: Player) => `${element.penalties}`, isSortable: true },
+    { columnDef: 'pointsPerGame', header: 'PPG', cellData: (element: Player) => `${element.pointsPerGame.toFixed(2)}`, isSortable: true },
   ];
-
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.datasource = new PlayersDataSource(this.dataService);
-    this.datasource.loadPlayers('', 'points', 'desc');
   }
 
-  ngAfterViewInit() {
-    //this.sort.sortChange
-    //  .pipe(
-    //    tap(() => console.log("DAVID: sort", this.sort)),
-    //    tap(() => this.loadPlayers())
-    //  )
-    //.subscribe();
-  }
-
-  private loadPlayers(): void {
-    this.datasource.loadPlayers(
-      '',
-      this.sort.active,
-      this.sort.direction,
-    );
-  }
+  ngAfterViewInit() { }
 }
