@@ -15,7 +15,9 @@ export class PlayersDataSource implements DataSource<Player> {
 
   public loadDetails(
     sortDirection: string,
-    sortColumn = 'points'
+    sortColumn = 'points',
+    filterField?: string,
+    filterValue?: string
   ): void {
     this.loadingSubject.next(true);
 

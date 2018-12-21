@@ -6,6 +6,7 @@ import { Game } from '../../model/game';
 import { Team } from '../../model/team';
 import { GamesDataSource } from '../../services/games.datasource';
 import { DataService } from '../../services/data.service';
+import { BackendService } from '../../services/backend.service';
 
 // const DefaultTeams: Team[] = [
 //   { "id": -1, "name": "All Teams", "players": [] }
@@ -34,10 +35,13 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     { columnDef: 'homeTeam', header: 'Home Team', cellData: (element: Game) => `${element.homeTeam}`, isSortable: false },
   ];
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private backendService: BackendService) { }
 
   ngOnInit() {
     this.datasource = new GamesDataSource(this.dataService);
+    this.backendService.getPlayers()
+      .subscribe(
+      );
   }
 
   ngAfterViewInit() {

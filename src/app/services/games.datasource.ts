@@ -3,9 +3,10 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { Game } from '../model/game';
 import { Player } from '../model/player';
-import { DataService } from './data.service';
+import { DataService, DataFilter } from './data.service';
+import { GenericDataSource } from './generic.datasource';
 
-export class GamesDataSource implements DataSource<Game> {
+export class GamesDataSource implements DataSource<Game>, GenericDataSource<Game> {
 
   private gamesSubject = new BehaviorSubject<Game[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -16,14 +17,19 @@ export class GamesDataSource implements DataSource<Game> {
 
   public loadDetails(
     sortColumn: string,
-    sortDirection = 'date'
+    sortDirection = 'date',
+    filterField?: string,
+    filterValue?: string
   ): void {
     this.loadingSubject.next(true);
 
-    // TODO: Fix this
-    let team = '';
+    const dataFilter = new Array<DataFilter>();
+    if (filterField != null && filterValue != null) {
+      dataFilter.push({ field: 'homeTeam', value: filterValue });
+      dataFilter.push({ field: 'awayTeam', value: filterValue });
+    }
 
-    this.dataService.getGamesSorted(team, sortColumn, sortDirection)
+    this.dataService.getGamesSorted(sortColumn, sortDirection, dataFilter)
     .pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))

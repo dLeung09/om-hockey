@@ -9,6 +9,11 @@ import { Game } from '../model/game';
 import { Player } from '../model/player';
 import { Team } from '../model/team';
 
+export interface DataFilter {
+  field: string,
+  value: string
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -63,9 +68,9 @@ export class DataService {
   }
 
   public getGamesSorted(
-    team: string,
     sortColumn: string,
     sortDirection: string,
+    filters: Array<DataFilter>
   ): Observable<Game[]> {
     let response: Observable<Game[]>;
 
@@ -77,20 +82,39 @@ export class DataService {
       response = of(this._games);
     }
 
-    const homeGames = response.pipe(
-      map(this.filterByTeam(team, 'homeTeam'))
-    );
+    // TODO: Iterate over filters and fork join
+    // let team = '';
 
-    const awayGames = response.pipe(
-      map(this.filterByTeam(team, 'awayTeam'))
-    );
+    // const homeGames = response.pipe(
+    //   map(this.filterByTeam(team, 'homeTeam'))
+    // );
 
-    return forkJoin([homeGames, awayGames]).pipe(
+    // const awayGames = response.pipe(
+    //   map(this.filterByTeam(team, 'awayTeam'))
+    // );
+
+    let filterObs = [];
+
+    filters.forEach(filter => {
+      const filterResponse = response.pipe(
+        map(this.filterByTeam(filter.value, filter.field))
+      );
+      filterObs.push(filterResponse);
+    });
+
+    return forkJoin(filterObs)
+    .pipe(
       map(games => {
         return [].concat(...games);
       }),
       map(this.sortByColumn(sortColumn, sortDirection))
     );
+    // return forkJoin([homeGames, awayGames]).pipe(
+    //   map(games => {
+    //     return [].concat(...games);
+    //   }),
+    //   map(this.sortByColumn(sortColumn, sortDirection))
+    // );
   }
 
   private filterByTeam (teamFilter: string, teamKey: string) {

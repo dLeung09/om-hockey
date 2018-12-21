@@ -18,6 +18,8 @@ export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team
   public loadDetails(
     sortDirection: string,
     sortColumn = 'points',
+    filterField?: string,
+    filterValue?: string
   ): void {
     this.loadingSubject.next(true);
 
