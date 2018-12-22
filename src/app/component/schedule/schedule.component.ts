@@ -21,8 +21,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   private datasource: GamesDataSource;
 
   private columns = [
-    { columnDef: 'date', header: 'Date', cellData: (element: Game) => `${this.formatDate(element.date)}`, isSortable: false },
-    { columnDef: 'time', header: 'Time', cellData: (element: Game) => `${this.formatTime(element.date)}`, isSortable: false },
+    { columnDef: 'date', header: 'Date', cellData: (element: Game) => `${this.formatTime(element.date)}`, isSortable: false },
     { columnDef: 'type', header: 'Game Type', cellData: (element: Game) => `${element.gameType}`, isSortable: false },
     { columnDef: 'arena', header: 'Arena', cellData: (element: Game) => `${element.arena}`, isSortable: false },
     { columnDef: 'awayTeam', header: 'Away Team', cellData: (element: Game) => `${element.awayTeam}`, isSortable: false },
@@ -54,13 +53,6 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     this.teamFilter = '';
     this.datasource.setFilter('team', this.teamFilter);
     this.datasource.loadDetails();
-  }
-
-  private formatDate(dateStr: Date) : string {
-    let date = new Date(dateStr);
-    let options = { year: 'numeric', month: 'long', day: 'numeric' };
-
-    return date.toLocaleDateString("en-US", options);
   }
 
   private formatTime(time: Date) : string {

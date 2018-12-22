@@ -135,18 +135,6 @@ export class DataService {
     };
   }
 
-  private filterByPlayer (playerFilter: string, playerKey: string) {
-    return (data: any) => {
-      return data.filter(element => {
-        if (playerFilter == null || playerFilter === '') {
-          return data;
-        }
-
-        return element.hasOwnProperty(playerKey) && element[playerKey] === playerFilter;
-      });
-    };
-  }
-
   private sortByColumn (sortColumn: string, sortDirection: string) {
     return (data: any) => {
       const dataResult = data.sort( (a, b) => {

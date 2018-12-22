@@ -2,22 +2,18 @@
 
 <!-- Announcements? -->
 
-<!-- Upcoming Schedule -->
-<!--
-<h4>Upcoming Games</h4>
-<app-schedule [games]="upcomingGames"></app-schedule>
--->
-
 <!-- Recent Results -->
-<!--
 <h4>Recent Games</h4>
-<app-schedule [games]="recentGames"></app-schedule>
--->
+<app-table [datasource]="recentGamesDatasource" [columns]="recentGamesColumns"></app-table>
+
+<!-- Upcoming Schedule -->
+<h4>Upcoming Games</h4>
+<app-table [datasource]="upcomingGamesDatasource" [columns]="upcomingGamesColumns"></app-table>
 
 <!-- Standings -->
 <h4>Standings</h4>
-<app-standings></app-standings>
+<app-table [datasource]="standingsDatasource" [columns]="standingsColumns"></app-table>
 
 <!-- Player Stats -->
 <h4>Player Stats</h4>
-<app-player-stats></app-player-stats>
+<app-table [datasource]="statsDatasource" [columns]="statsColumns"></app-table>

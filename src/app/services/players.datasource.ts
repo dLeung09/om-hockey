@@ -13,6 +13,7 @@ export class PlayersDataSource implements DataSource<Player> {
   private _sortColumn: string;
   private _filterField: string;
   private _filterValue: string;
+  private _numResults: number;
 
   public loading$ = this.loadingSubject.asObservable();
 
@@ -28,12 +29,23 @@ export class PlayersDataSource implements DataSource<Player> {
     this._filterValue = filterValue;
   }
 
+  public setNumResults(numResults: number): void {
+    this._numResults = numResults;
+  }
+
   public loadDetails(): void {
     this.loadingSubject.next(true);
 
     const dataFilter = [{ field: 'team', value: this._filterValue }];
     this.dataService.getPlayersSorted(this._sortColumn, this._sortDirection, dataFilter)
     .pipe(
+      map(players => {
+        if (this._numResults) {
+          return players.splice(0, this._numResults);
+        }
+
+        return players;
+      }),
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     )

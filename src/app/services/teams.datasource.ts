@@ -1,6 +1,6 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, finalize, map } from 'rxjs/operators';
 import { Player } from '../model/player';
 import { Team } from '../model/team';
 import { DataService, DataFilter } from './data.service';
@@ -15,6 +15,7 @@ export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team
   private _sortColumn: string;
   private _filterField: string;
   private _filterValue: string;
+  private _numResults: number;
 
   public loading$ = this.loadingSubject.asObservable();
 
@@ -30,6 +31,10 @@ export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team
     this._filterValue = filterValue;
   }
 
+  public setNumResults(numResults: number): void {
+    this._numResults = numResults;
+  }
+
   public loadDetails(): void {
     this.loadingSubject.next(true);
 
@@ -37,6 +42,13 @@ export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team
 
     this.dataService.getTeamsSorted(this._sortColumn, this._sortDirection, dataFilter)
     .pipe(
+      map(teams => {
+        if (this._numResults) {
+          return teams.splice(0, this._numResults);
+        }
+
+        return teams;
+      }),
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     )

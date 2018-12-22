@@ -1,6 +1,6 @@
 .table-component {
     overflow: auto;
-    height: 750px;
+    height: 100%;
 }
 
 table { 
