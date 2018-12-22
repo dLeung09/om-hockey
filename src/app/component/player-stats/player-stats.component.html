@@ -1,5 +1,19 @@
 <div class="player-stats-component">
 
+    <mat-form-field>
+
+        <mat-select placeholder="Team Filter" [(value)]="teamFilter">
+            <mat-option *ngFor="let team of teams" [value]="team.name">
+                {{ team.name }}
+            </mat-option>
+        </mat-select>
+
+    </mat-form-field>
+
+    <button mat-button (click)="applyFilter()">Apply</button>
+
+    <button mat-button (click)="clearFilter()">Clear</button>
+
     <app-table [datasource]="datasource" [columns]="columns"></app-table>
 
 </div>

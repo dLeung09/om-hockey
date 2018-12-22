@@ -11,25 +11,35 @@ export class GamesDataSource implements DataSource<Game>, GenericDataSource<Game
   private gamesSubject = new BehaviorSubject<Game[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
+  private _sortDirection: string;
+  private _sortColumn: string;
+  private _filterField: string;
+  private _filterValue: string;
+
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private dataService: DataService) { }
 
-  public loadDetails(
-    sortColumn: string,
-    sortDirection = 'date',
-    filterField?: string,
-    filterValue?: string
-  ): void {
+  public setSort(sortDirection: string, sortColumn: string): void {
+    this._sortDirection = sortDirection;
+    this._sortColumn = sortColumn;
+  }
+
+  public setFilter(filterField: string, filterValue: string): void {
+    this._filterField = filterField;
+    this._filterValue = filterValue;
+  }
+
+  public loadDetails(): void {
     this.loadingSubject.next(true);
 
     const dataFilter = new Array<DataFilter>();
-    if (filterField != null && filterValue != null) {
-      dataFilter.push({ field: 'homeTeam', value: filterValue });
-      dataFilter.push({ field: 'awayTeam', value: filterValue });
+    if (this._filterField != null && this._filterValue) {
+      dataFilter.push({ field: 'awayTeam', value: this._filterValue });
+      dataFilter.push({ field: 'homeTeam', value: this._filterValue });
     }
 
-    this.dataService.getGamesSorted(sortColumn, sortDirection, dataFilter)
+    this.dataService.getGamesSorted(this._sortColumn, this._sortDirection, dataFilter)
     .pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
@@ -38,7 +48,6 @@ export class GamesDataSource implements DataSource<Game>, GenericDataSource<Game
   }
 
   public connect(collectionViewer: CollectionViewer): Observable<Game[]> {
-    // console.log('Connecting data source');
     return this.gamesSubject.asObservable();
   }
 

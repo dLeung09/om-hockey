@@ -3,8 +3,10 @@ import { Observable } from 'rxjs';
 import { merge, tap } from 'rxjs/operators';
 
 import { Player } from '../../model/player';
+import { Team } from '../../model/team';
 import { PlayersDataSource } from '../../services/players.datasource';
 import { DataService } from '../../services/data.service';
+import { BackendService } from '../../services/backend.service';
 
 @Component({
   selector: 'app-player-stats',
@@ -14,6 +16,9 @@ import { DataService } from '../../services/data.service';
 export class PlayerStatsComponent implements OnInit, AfterViewInit {
 
   private players: Player[] = null;
+  private teams: Team[] = null;
+  public teamFilter: string;
+
   private datasource: PlayersDataSource;
 
   private columns = [
@@ -27,11 +32,28 @@ export class PlayerStatsComponent implements OnInit, AfterViewInit {
     { columnDef: 'pointsPerGame', header: 'PPG', cellData: (element: Player) => `${element.pointsPerGame.toFixed(2)}`, isSortable: true },
   ];
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private backendService: BackendService) { }
 
   ngOnInit() {
     this.datasource = new PlayersDataSource(this.dataService);
+    this.datasource.setSort('desc', 'points');
+    this.datasource.setFilter('', '');
+    this.backendService.getTeams()
+      .subscribe(teams => {
+        this.teams = teams;
+      });
   }
 
   ngAfterViewInit() { }
+
+  public applyFilter(): void {
+    this.datasource.setFilter('team', this.teamFilter);
+    this.datasource.loadDetails();
+  }
+
+  public clearFilter(): void {
+    this.teamFilter = '';
+    this.datasource.setFilter('', this.teamFilter);
+    this.datasource.loadDetails();
+  }
 }

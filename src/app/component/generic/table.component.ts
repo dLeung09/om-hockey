@@ -32,9 +32,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input()
   private columns: Array<any>;
 
-  @Input()
-  private filter: { field: string, value: string };
-
   private displayColumns: Array<string>;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -43,7 +40,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.displayColumns = this.columns.map(c => c.columnDef);
-    this.datasource.loadDetails('desc');
+    this.datasource.loadDetails();
   }
 
   ngAfterViewInit() {
@@ -53,11 +50,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   private loadDetails(): void {
-    this.datasource.loadDetails(
-      this.sort.direction,
-      this.sort.active,
-      this.filter.field,
-      this.filter.value
-    );
+    this.datasource.setSort(this.sort.direction, this.sort.active);
+    this.datasource.loadDetails();
   }
 }

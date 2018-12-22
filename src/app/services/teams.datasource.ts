@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { Player } from '../model/player';
 import { Team } from '../model/team';
-import { DataService } from './data.service';
+import { DataService, DataFilter } from './data.service';
 import { GenericDataSource } from './generic.datasource';
 
 export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team> {
@@ -11,19 +11,31 @@ export class TeamsDataSource implements DataSource<Team>, GenericDataSource<Team
   private teamsSubject = new BehaviorSubject<Team[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
+  private _sortDirection: string;
+  private _sortColumn: string;
+  private _filterField: string;
+  private _filterValue: string;
+
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private dataService: DataService) { }
 
-  public loadDetails(
-    sortDirection: string,
-    sortColumn = 'points',
-    filterField?: string,
-    filterValue?: string
-  ): void {
+  public setSort(sortDirection: string, sortColumn: string): void {
+    this._sortDirection = sortDirection;
+    this._sortColumn = sortColumn;
+  }
+
+  public setFilter(filterField: string, filterValue: string): void {
+    this._filterField = filterField;
+    this._filterValue = filterValue;
+  }
+
+  public loadDetails(): void {
     this.loadingSubject.next(true);
 
-    this.dataService.getTeamsSorted(sortColumn, sortDirection)
+    const dataFilter = new Array<DataFilter>();
+
+    this.dataService.getTeamsSorted(this._sortColumn, this._sortDirection, dataFilter)
     .pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))

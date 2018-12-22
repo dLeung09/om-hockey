@@ -14,7 +14,6 @@ import { DataService } from '../../services/data.service';
 })
 export class StandingsComponent implements OnInit, AfterViewInit {
 
-  private teams: Team[] = null;
   private datasource: TeamsDataSource;
 
   private columns = [
@@ -35,6 +34,8 @@ export class StandingsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.datasource = new TeamsDataSource(this.dataService);
+    this.datasource.setSort('desc', 'points');
+    this.datasource.setFilter('', '');
   }
 
   ngAfterViewInit() { }

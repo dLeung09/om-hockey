@@ -8,10 +8,6 @@ import { GamesDataSource } from '../../services/games.datasource';
 import { DataService } from '../../services/data.service';
 import { BackendService } from '../../services/backend.service';
 
-// const DefaultTeams: Team[] = [
-//   { "id": -1, "name": "All Teams", "players": [] }
-// ];
-
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
@@ -39,12 +35,25 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.datasource = new GamesDataSource(this.dataService);
-    this.backendService.getPlayers()
-      .subscribe(
-      );
+    this.datasource.setSort('asc', 'date');
+    this.datasource.setFilter('', '');
+    this.backendService.getTeams()
+      .subscribe(teams => {
+        this.teams = teams;
+      });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() { }
+
+  public applyFilter(): void {
+    this.datasource.setFilter('team', this.teamFilter);
+    this.datasource.loadDetails();
+  }
+
+  public clearFilter(): void {
+    this.teamFilter = '';
+    this.datasource.setFilter('team', this.teamFilter);
+    this.datasource.loadDetails();
   }
 
   private formatDate(dateStr: Date) : string {

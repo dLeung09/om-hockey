@@ -32,6 +32,7 @@ export class DataService {
   public getTeamsSorted(
     sortColumn: string,
     sortDirection: string,
+    filters: Array<DataFilter>
   ): Observable<Team[]> {
     let response: Observable<Team[]>;
 
@@ -51,6 +52,7 @@ export class DataService {
   public getPlayersSorted(
     sortColumn: string,
     sortDirection: string,
+    filters: Array<DataFilter>
   ): Observable<Player[]> {
     let response: Observable<Player[]>;
 
@@ -62,8 +64,25 @@ export class DataService {
       response = of(this._players);
     }
 
-    return response.pipe(
-      map(this.sortByColumn(sortColumn, sortDirection)),
+    let filterObs = [];
+
+    filters.forEach(filter => {
+      const filterResponse = response.pipe(
+        map(this.filterByTeam(filter.value, filter.field))
+      );
+      filterObs.push(filterResponse);
+    });
+
+    if (filterObs.length < 1) {
+      filterObs = [ response ];
+    }
+
+    return forkJoin(filterObs)
+    .pipe(
+      map(games => {
+        return [].concat(...games);
+      }),
+      map(this.sortByColumn(sortColumn, sortDirection))
     );
   }
 
@@ -82,17 +101,6 @@ export class DataService {
       response = of(this._games);
     }
 
-    // TODO: Iterate over filters and fork join
-    // let team = '';
-
-    // const homeGames = response.pipe(
-    //   map(this.filterByTeam(team, 'homeTeam'))
-    // );
-
-    // const awayGames = response.pipe(
-    //   map(this.filterByTeam(team, 'awayTeam'))
-    // );
-
     let filterObs = [];
 
     filters.forEach(filter => {
@@ -102,6 +110,10 @@ export class DataService {
       filterObs.push(filterResponse);
     });
 
+    if (filterObs.length < 1) {
+      filterObs = [ response ];
+    }
+
     return forkJoin(filterObs)
     .pipe(
       map(games => {
@@ -109,12 +121,6 @@ export class DataService {
       }),
       map(this.sortByColumn(sortColumn, sortDirection))
     );
-    // return forkJoin([homeGames, awayGames]).pipe(
-    //   map(games => {
-    //     return [].concat(...games);
-    //   }),
-    //   map(this.sortByColumn(sortColumn, sortDirection))
-    // );
   }
 
   private filterByTeam (teamFilter: string, teamKey: string) {
@@ -152,12 +158,10 @@ export class DataService {
           bObj = new Date(b[sortColumn]);
         }
 
-        //if (a[sortColumn] < b[sortColumn]) {
         if (aObj < bObj) {
           return -1;
         }
 
-        //if (b[sortColumn] < a[sortColumn]) {
         if (bObj < aObj) {
           return 1;
         }

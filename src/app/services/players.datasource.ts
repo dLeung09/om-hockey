@@ -9,19 +9,30 @@ export class PlayersDataSource implements DataSource<Player> {
   private playersSubject = new BehaviorSubject<Player[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
+  private _sortDirection: string;
+  private _sortColumn: string;
+  private _filterField: string;
+  private _filterValue: string;
+
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private dataService: DataService) { }
 
-  public loadDetails(
-    sortDirection: string,
-    sortColumn = 'points',
-    filterField?: string,
-    filterValue?: string
-  ): void {
+  public setSort(sortDirection: string, sortColumn: string): void {
+    this._sortDirection = sortDirection;
+    this._sortColumn = sortColumn;
+  }
+
+  public setFilter(filterField: string, filterValue: string): void {
+    this._filterField = filterField;
+    this._filterValue = filterValue;
+  }
+
+  public loadDetails(): void {
     this.loadingSubject.next(true);
 
-    this.dataService.getPlayersSorted(sortColumn, sortDirection)
+    const dataFilter = [{ field: 'team', value: this._filterValue }];
+    this.dataService.getPlayersSorted(this._sortColumn, this._sortDirection, dataFilter)
     .pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
