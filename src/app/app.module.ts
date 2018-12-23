@@ -32,7 +32,7 @@ import { TeamStatsComponent } from './component/team-stats/team-stats.component'
 import { TeamLeadersComponent } from './component/team-leaders/team-leaders.component';
 import { HeadToHeadComponent } from './component/head-to-head/head-to-head.component';
 import { UpcomingEventsComponent } from './component/upcoming-events/upcoming-events.component';
-import { ArenaMapsComponent } from './component/arena-maps/arena-maps.component';
+import { ArenasComponent } from './component/arenas/arenas.component';
 import { RulesRegulationsComponent } from './component/rules-regulations/rules-regulations.component';
 import { ContactInfoComponent } from './component/contact-info/contact-info.component';
 import { TableComponent } from './component/generic/table.component';
@@ -58,7 +58,7 @@ import { DemoModeInterceptor } from './demo/interceptor/http.interceptor';
     TeamLeadersComponent,
     HeadToHeadComponent,
     UpcomingEventsComponent,
-    ArenaMapsComponent,
+    ArenasComponent,
     RulesRegulationsComponent,
     ContactInfoComponent,
     TableComponent,

@@ -1,14 +1,13 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
-import { Game } from '../model/game';
-import { Player } from '../model/player';
+import { Arena } from '../model/arena';
 import { DataService, DataFilter } from './data.service';
 import { GenericDataSource } from './generic.datasource';
 
-export class GamesDataSource implements DataSource<Game>, GenericDataSource<Game> {
+export class ArenasDataSource implements DataSource<Arena>, GenericDataSource<Arena> {
 
-  private gamesSubject = new BehaviorSubject<Game[]>([]);
+  private arenasSubject = new BehaviorSubject<Arena[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   private _sortDirection: string;
@@ -40,31 +39,30 @@ export class GamesDataSource implements DataSource<Game>, GenericDataSource<Game
 
     const dataFilter = new Array<DataFilter>();
     if (this._filterField != null && this._filterValue != null) {
-      dataFilter.push({ field: 'awayTeam', value: this._filterValue });
-      dataFilter.push({ field: 'homeTeam', value: this._filterValue });
+      dataFilter.push({ field: this._filterField, value: this._filterValue });
     }
 
-    this.dataService.getGamesSorted(this._sortColumn, this._sortDirection, dataFilter)
+    this.dataService.getArenasSorted(this._sortColumn, this._sortDirection, dataFilter)
     .pipe(
-      map(games => {
+      map(arenas => {
         if (this._numResults) {
-          return games.splice(0, this._numResults);
+          return arenas.splice(0, this._numResults);
         }
 
-        return games;
+        return arenas;
       }),
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     )
-    .subscribe(games => this.gamesSubject.next(games));
+    .subscribe(arenas => this.arenasSubject.next(arenas));
   }
 
-  public connect(collectionViewer: CollectionViewer): Observable<Game[]> {
-    return this.gamesSubject.asObservable();
+  public connect(collectionViewer: CollectionViewer): Observable<Arena[]> {
+    return this.arenasSubject.asObservable();
   }
 
   public disconnect(collectionViewer: CollectionViewer): void {
-    this.gamesSubject.complete();
+    this.arenasSubject.complete();
     this.loadingSubject.complete();
   }
 }

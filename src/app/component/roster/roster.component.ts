@@ -34,7 +34,6 @@ export class RosterComponent implements OnInit {
           datasource.setSort('asc', 'name');
           datasource.setFilter('team', team.name);
           this.datasources.push(datasource);
-          console.log('[DAVID] datasource', datasource);
         });
       });
   }

@@ -18,11 +18,19 @@ interface PlayerSort {
 })
 export class BackendService {
 
+  private arenasUrl = 'api/1/arenas';
   private gamesUrl = 'api/1/games';
   private teamsUrl = 'api/1/teams';
   private playersUrl = 'api/1/players';
 
   constructor(private http: HttpClient) { }
+
+  public getArenas(): Observable<Arena[]> {
+    return this.http.get<Arena[]>(this.arenasUrl)
+    .pipe(
+      catchError(this.handleError('getArenas', []))
+    );
+  }
 
   public getGames(): Observable<Game[]> {
     return this.http.get<Game[]>(this.gamesUrl)

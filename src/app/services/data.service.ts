@@ -19,14 +19,53 @@ export interface DataFilter {
 })
 export class DataService {
 
+  private _arenas: Arena[];
   private _games: Game[];
   private _players: Player[];
   private _teams: Team[];
 
   constructor(private backendService: BackendService) {
+    this._arenas = [];
     this._games = [];
     this._players = [];
     this._teams = [];
+  }
+
+  public getArenasSorted(
+    sortColumn: string,
+    sortDirection: string,
+    filters: Array<DataFilter>
+  ): Observable<Arena[]> {
+    let response: Observable<Arena[]>
+
+    if (this._arenas == null || this._arenas.length < 1) {
+      response = this.backendService.getArenas().pipe(
+        tap(arenas => { this._arenas = arenas; } )
+      );
+    } else {
+      response = of(this._arenas);
+    }
+
+    let filterObs = [];
+
+    filters.forEach(filter => {
+      const filterResponse = response.pipe(
+        map(this.filterByTeam(filter.value, filter.field))
+      );
+      filterObs.push(filterResponse);
+    });
+
+    if (filterObs.length < 1) {
+      filterObs = [ response ];
+    }
+
+    return forkJoin(filterObs)
+    .pipe(
+      map(arenas => {
+        return [].concat(...arenas);
+      }),
+      map(this.sortByColumn(sortColumn, sortDirection))
+    );
   }
 
   public getTeamsSorted(

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { merge, tap } from 'rxjs/operators';
+// import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Game } from '../../model/game';
 import { Team, GameScore } from '../../model/team';

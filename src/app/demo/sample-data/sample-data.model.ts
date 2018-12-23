@@ -278,6 +278,34 @@ export namespace SampleData {
     //},
   ]);
 
+  export const Arenas = JSON.stringify([
+    { id: 0, name: 'Barbara Ann Scott',                                   address: '2250 Torquay Ave, Nepean', active: 'false' },
+    { id: 1, name: 'Bell Centennial Arena',                               address: '50 Cassidy Rd., Nepean', active: 'false' },
+    { id: 2, name: 'Bell Sensplex - Direct Energy',	 	                  address: '1565 Maple Grove Rd., Kanata', active: 'false' },
+    { id: 3, name: 'Bell Sensplex - Mattamy Homes',	 	                  address: '1565 Maple Grove Rd., Kanata', active: 'false' },
+    { id: 4, name: 'Bell Sensplex - Ottawa Citizen',	 	              address: '1565 Maple Grove Rd., Kanata', active: 'false' },
+    { id: 5, name: 'Bell Sensplex - Palladium Insurance',                 address: '1565 Maple Grove Rd., Kanata', active: 'false' },
+    { id: 6, name: 'Bell Sensplex - Scotiabank',                          address: '1565 Maple Grove Rd., Kanata', active: 'false' },
+    { id: 7, name: 'Goulbourn Recreation Complex - Arena A',              address: '1500 Shea Road, Stittsville', active: 'false' },
+    { id: 8, name: 'Goulbourn Recreation Complex - Arena B',              address: '1500 Shea Road, Stittsville', active: 'false' },
+    { id: 9, name: 'Jack Charron Arena',                                  address: '10 McKitrick Dr., Kanata', active: 'false' },
+    { id: 10, name: 'Jim Durrell - Jim Peplinski Arena',                   address: '1264 Walkley Road', active: 'false' },
+    { id: 11, name: 'John G. Mlacak Centre',                               address: '2500 Campeau Dr., Kanata', active: 'false' },
+    { id: 12, name: 'Johnny Leroux Stittsville Com. Arena',                address: '10 Warner-Colpitts LN', active: 'false' },
+    { id: 13, name: 'Kanata Rec Complex - Rink A',                         address: '100 Walter Baker Pl, Kanata', active: 'false' },
+    { id: 14, name: 'Kanata Rec Complex - Rink B',                         address: '100 Walter Baker Pl, Kanata', active: 'false' },
+    { id: 15, name: 'Manotick Arena',                                      address: '5572 Doctor Leach, Manotick', active: 'false' },
+    { id: 16, name: 'Minto Arena',                                         address: '2571 Lancaster Rd.  Ottawa', active: 'false' },
+    { id: 17, name: 'Minto Recreation Complex - Barrhaven - North',        address: '3500 Cambrian Drive', active: 'true' },
+    { id: 18, name: 'Minto Recreation Complex - Barrhaven - South',        address: '3500 Cambrian Drive', active: 'false' },
+    { id: 19, name: 'Nepean Sportsplex - Arena 1 (Yzerman)',               address: '1701 Woodroffe Ave. Nepean', active: 'true' },
+    { id: 20, name: 'Nepean Sportsplex - Arena 2 (At the back)',           address: '1701 Woodroffe Ave. Nepean', active: 'true' },
+    { id: 21, name: 'Nepean Sportsplex - Arena 3 (Figure Skating Arena)',  address: '1701 Woodroffe Ave. Nepean', active: 'true' },
+    { id: 22, name: 'Richmond Memorial Community Centre',                  address: '6095 Perth St. Richmond, ON', active: 'false' },
+    { id: 23, name: 'Walter Baker (Rink A)',                               address: '101 Malvern Dr., Barrhaven', active: 'true' },
+    { id: 24, name: 'Walter Baker (Rink B)',                               address: '101 Malvern Dr., Barrhaven', active: 'true' },
+  ]);
+
   export const Games = JSON.stringify([
     { id: 0,  date: "May 2, 2018 07:00",  gameType: "League",   awayTeam: SeanGordGangTeam.name,         awayScore: 7,	homeScore: 6,	homeTeam: LucLeedsGrenvillersTeam.name,	arena: "Minto Recreation Complex - Barrhaven - North" },
     { id: 1,  date: "May 4, 2018 07:00",  gameType: "League",   awayTeam: Cliff27sTeam.name,             awayScore: 4,	homeScore: 9,	homeTeam: KeithToryTeam.name,	        arena: "Minto Recreation Complex - Barrhaven - North" },
