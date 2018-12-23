@@ -5,15 +5,16 @@
         <h1 class="example-app-name">{{title}}</h1>
     </mat-toolbar>
 
-    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="56">
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="56" (backdropClick)="snav.close()">
 
         <mat-sidenav #snav [mode]="over" [fixedInViewport]="true" fixedTopGap="56">
 
-            <mat-nav-list>
+            <mat-nav-list (click)="snav.close()">
                 <a mat-list-item routerLink='/dashboard'>Home</a>
-                <a mat-list-item routerLink='/standings'>Standings</a>
-                <a mat-list-item routerLink='/player-stats'>Player Stats</a>
+                <a mat-list-item routerLink='/roster'>Rosters</a>
                 <a mat-list-item routerLink='/schedule'>Schedule</a>
+                <a mat-list-item routerLink='/standings'>Standings</a>
+                <a mat-list-item routerLink='/player-stats'>Statistics</a>
             </mat-nav-list>
 
         </mat-sidenav>
@@ -34,17 +35,18 @@
     <div class="outer-component">
         <nav class='side-nav'>
             <a routerLink='/dashboard'>Home</a>
+            <a routerLink='/player-stats'>Player Stats</a>
+            <a routerLink='/schedule'>Schedule</a>
+            <a routerLink='/standings'>Standings</a>
+
+            <a routerLink='/arena-maps'>Arena Maps</a>
+            <a routerLink='/roster'>Roster</a>
 
             <a routerLink='/player-registration'>Player Registration</a>
 
-            <a routerLink='/schedule'>Schedule</a>
-
             <a routerLink='/game-status'>Game Status</a>
             <a routerLink='/teams'>Teams</a>
-            <a routerLink='/roster'>Roster</a>
 
-            <a routerLink='/standings'>Standings</a>
-            <a routerLink='/player-stats'>Player Stats</a>
             <a routerLink='/goalie-stats'>Goalie Stats</a>
 
             <a routerLink='/career-stats'>Career Stats</a>
@@ -53,7 +55,6 @@
             <a routerLink='/team-leaders'>Team Leaders</a>
             <a routerLink='/head-to-head'>Head to Head</a>
             <a routerLink='/upcoming-events'>Upcoming Events</a>
-            <a routerLink='/arena-maps'>Arena Maps</a>
 
             <a routerLink='/rules-regulations'>Rules and Regulations</a>
             <a routerLink='/contact-info'>Contact Info</a>
