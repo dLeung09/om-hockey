@@ -1,0 +1,12 @@
+.fields-columns {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 300px;
+}
+
+.fields-rows {
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

@@ -3,18 +3,23 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatInputModule,
   MatIconModule,
   MatListModule,
+  MatNativeDateModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
   MatSortModule,
+  MatStepperModule,
   MatTableModule,
   MatToolbarModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
@@ -70,15 +75,21 @@ import { DemoModeInterceptor } from './demo/interceptor/http.interceptor';
     FormsModule,
     HttpClientModule,
     MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatInputModule,
     MatIconModule,
     MatListModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSortModule,
+    MatStepperModule,
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {

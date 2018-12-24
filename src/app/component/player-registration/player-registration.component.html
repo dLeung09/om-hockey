@@ -1,3 +1,118 @@
-<p>
-  player-registration works!
-</p>
+<div class="player-registration-component">
+
+    <mat-horizontal-stepper #stepper>
+
+        <mat-step [stepControl]="contactDetailsFormGroup">
+            <form>
+
+                <ng-template matStepLabel>Contact Details</ng-template>
+
+                <div class="fields-rows">
+                    <div class="fields-columns">
+                        <mat-form-field>
+                            <input matInput placeholder="First Name" [(ngModel)]="player.firstName" name="firstName" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Last Name" [(ngModel)]="player.lastName" name="lastName" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Email" [(ngModel)]="player.emailAddress" name="email" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Address" [(ngModel)]="player.address" name="address" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Phone Number" [(ngModel)]="player.phoneNumber" name="phone">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select placeholder="Gender" [(ngModel)]="player.gender" name="gender">
+                                <mat-option [value]="'male'">Male</mat-option>
+                                <mat-option [value]="'female'">Female</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Date of Birth" [(ngModel)]="player.dateOfBirth" name="dob"
+                                required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </div>
+
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="playerDetailsFormGroup">
+            <form>
+
+                <ng-template matStepLabel>Player Details</ng-template>
+
+                <div class="fields-rows">
+                    <div class="fields-columns">
+                        <mat-form-field>
+                            <input matInput placeholder="Jersey Number" [(ngModel)]="player.jersey" name="jersy">
+                        </mat-form-field>
+
+                        <mat-checkbox [(ngModel)]="player.center" name="center">Center</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="player.leftWing" name="leftWing">Left Wing</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="player.rightWing" name="rightWing">Right Wing</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="player.defence" name="defence">Defence</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="player.goalie" name="goalie">Goalie</mat-checkbox>
+                    </div>
+
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </div>
+
+            </form>
+        </mat-step>
+
+        <mat-step>
+
+            <ng-template matStepLabel>Done</ng-template>
+
+            <div class="fields-rows">
+                <div class="fields-columns">
+                    <p>Name: {{ player.firstName }} {{ player.lastName }}</p>
+                    <p>Email: {{ player.emailAddress }}</p>
+                    <p>Addresss: {{ player.address }}</p>
+                    <p>Phone: {{ player.phoneNumber }}</p>
+                    <p>Gender: {{ player.gender }}</p>
+                    <p>DOB: {{ player.dateOfBirth }}</p>
+                    <p>Jersey: {{ player.jersey }}</p>
+                    <p>Center: {{ player.center }}</p>
+                    <p>Left Wing: {{ player.leftWing }}</p>
+                    <p>Right Wing: {{ player.rightWing }}</p>
+                    <p>Defence: {{ player.defence }}</p>
+                    <p>Goalie: {{ player.goalie }}</p>
+                </div>
+            </div>
+
+            <br>
+
+            Submit?
+
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+                <button mat-button (click)="submit()">Submit</button>
+            </div>
+
+
+        </mat-step>
+
+    </mat-horizontal-stepper>
+
+</div>
